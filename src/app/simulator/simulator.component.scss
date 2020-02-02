@@ -1,0 +1,52 @@
+
+
+:host {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.simulator-toolbar {
+    // height: 64px;
+}
+
+.simulator-content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-flow: row nowrap;
+}
+
+.simulator-left-tools {
+    width: 250px;
+}
+
+.canvas-container {
+    flex: 1 1 auto;
+    position: relative;
+    overflow: hidden;
+
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+}
+
+.params-form {
+
+    padding: 12px;
+
+    .mat-form-field {
+        display: block;
+    }
+
+    .mat-checkbox {
+        display: block;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+}

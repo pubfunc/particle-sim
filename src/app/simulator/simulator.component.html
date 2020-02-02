@@ -1,0 +1,64 @@
+<mat-toolbar class="simulator-toolbar" color="primary">
+
+    <mat-toolbar-row>
+        <span>Particle Sim</span>
+        <button type="button" mat-icon-button (click)="toggleStart()">
+            <mat-icon>{{ running ? 'pause_circle_filled' : 'play_circle_filled' }}</mat-icon>
+        </button>
+        <span></span>
+    </mat-toolbar-row>
+
+</mat-toolbar>
+<div class="simulator-content">
+
+    <div class="simulator-left-tools">
+
+
+        <div class="params-form">
+
+
+            <mat-checkbox [(ngModel)]="draw_velocity">Draw velocity</mat-checkbox>
+            <mat-checkbox [(ngModel)]="draw_acceleration">Draw acceleration</mat-checkbox>
+            <mat-checkbox [(ngModel)]="draw_label">Draw label</mat-checkbox>
+
+            <mat-form-field appearance="standard">
+                <mat-label>Scale</mat-label>
+                <input type="number" [(ngModel)]="scale" matInput>
+            </mat-form-field>
+
+        </div>
+
+        <form [formGroup]="paramsFormGroup" class="params-form">
+
+            <mat-form-field appearance="standard">
+                <mat-label>Gamma</mat-label>
+                <input type="number" formControlName="gamma" matInput>
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+                <mat-label>Time Step</mat-label>
+                <input type="number" formControlName="time_step" matInput>
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+                <mat-label>Softening</mat-label>
+                <input type="number" formControlName="softening" matInput>
+            </mat-form-field>
+
+            <div class="form-actions">
+                <button mat-raised-button type="button" (click)="applyParams()" color="accent">Apply</button>
+                <button mat-raised-button type="button" (click)="resetAndApplyParams()" color="accent">Reset</button>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div #container class="canvas-container">
+        <canvas #backgroundCanvas style="z-index: 1;">
+        </canvas>
+        <canvas #canvas 
+            style="z-index: 2;"
+            (wheel)="onWheel($event)" 
+            (mousedown)="onMouseDown($event)">
+        </canvas>
+    </div>
+</div>
