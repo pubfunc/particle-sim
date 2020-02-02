@@ -22,7 +22,7 @@ const SCENE_2: Readonly<ParticleParams[]> = Object.freeze([
     { label: 'A1', x: 0, y: -(dist_minor + dist_major), mass: 1e-10, vx: vel_minor, vy: 0, size: 2 },
     { label: 'B', x: 0, y: dist_major, mass: mass_major, vx: -vel_major, vy: 0, size: 4 },
     { label: 'B1', x: 0, y: (dist_minor + dist_major), mass: 1e-10, vx: -vel_minor, vy: 0, size: 2 },
-    { label: 'C', x: 0, y: 200, mass: 1e-20, vx: 40, vy: 0, size: 5 },
+    { label: 'C', x: 0, y: 200, mass: 1e-20, vx: 30, vy: 0, size: 5 },
     { label: 'M', x: 0, y: 0, mass: mass_sun, vx: 0, vy: 0, size: 20 },
 ]);
 
@@ -247,9 +247,8 @@ export class SimulatorComponent implements OnInit, OnDestroy {
         this.ctx.fill();
 
         // draw particle bg
-
-        this.bgCtx.fillStyle = 'rgba(255,255,255,0.2)';
-        this.bgCtx.fillRect(this.x(pi.x), this.y(pi.y), 1, 1);
+        // this.bgCtx.fillStyle = 'rgba(255,255,255,0.2)';
+        // this.bgCtx.fillRect(this.x(pi.x), this.y(pi.y), 1, 1);
 
         this.drawTooltips(pi);
     }
@@ -260,20 +259,20 @@ export class SimulatorComponent implements OnInit, OnDestroy {
 
         // draw velocity
         if(this.draw_velocity){
-            this.bgCtx.strokeStyle = 'green';
-            this.bgCtx.beginPath();
-            this.bgCtx.moveTo(x, y);
-            this.bgCtx.lineTo(x + this.r(pi.vx), y + this.r(pi.vy));
-            this.bgCtx.stroke();
+            this.ctx.strokeStyle = 'green';
+            this.ctx.beginPath();
+            this.ctx.moveTo(x, y);
+            this.ctx.lineTo(x + this.r(pi.vx), y + this.r(pi.vy));
+            this.ctx.stroke();
         }
 
         // draw acc
         if(this.draw_acceleration){
-            this.bgCtx.strokeStyle = 'red';
-            this.bgCtx.beginPath();
-            this.bgCtx.moveTo(x, y);
-            this.bgCtx.lineTo(x + (pi.ax * 10), y + (pi.ay * 10));
-            this.bgCtx.stroke();
+            this.ctx.strokeStyle = 'red';
+            this.ctx.beginPath();
+            this.ctx.moveTo(x, y);
+            this.ctx.lineTo(x + this.r(pi.ax * 10), y + this.r(pi.ay * 10));
+            this.ctx.stroke();
         }
 
         // draw tooltips
