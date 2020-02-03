@@ -69,6 +69,10 @@ export class Particle {
         const ac = (gamma * b.mass) / (d*d + softening);
         a.ax += ac * dx / d;
         a.ay += ac * dy / d;
+
+        // const f = (gamma * b.mass * a.mass) / (d*d + softening);
+        // a.fx += f * dx / d;
+        // a.fy += f * dy / d;
     }
 
     acc(){
