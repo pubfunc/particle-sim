@@ -4,10 +4,6 @@ export interface ParticleParams {
     y?: number;
     vx?: number;
     vy?: number;
-    ax?: number;
-    ay?: number;
-    fx?: number;
-    fy?: number;
     mass?: number;
     size?: number;
     label?: string;
@@ -18,16 +14,16 @@ export interface ParticleParams {
 // See http://physics.princeton.edu/~fpretori/Nbody/code.htm
 export class Particle {
 
-    public x: number;
-    public y: number;
-    public vx: number;
-    public vy: number;
-    public ax: number;
-    public ay: number;
-    public fx: number;
-    public fy: number;
-    public mass: number;
-    public r: number;
+    public x: number = 0;
+    public y: number = 0;
+    public vx: number = 0;
+    public vy: number = 0;
+    public ax: number = 0;
+    public ay: number = 0;
+    // public fx: number = 0;
+    // public fy: number = 0;
+    public mass: number = 1;
+    public r: number = 1;
     public label: string;
     public color: string;
 
@@ -37,10 +33,6 @@ export class Particle {
         this.y = params.y || 0;
         this.vx = params.vx || 0;
         this.vy = params.vy || 0;
-        this.ax = params.ax || 0;
-        this.ay = params.ay || 0;
-        this.fx = params.fx || 0;
-        this.fy = params.fy || 0;
         this.mass = params.mass || 0;
         this.r = params.size || 4;
         this.label = params.label || 'X';
@@ -52,8 +44,8 @@ export class Particle {
      */
     updateVectors(dt: number){
 
-        this.ax = this.fx / this.mass;
-        this.ay = this.fy / this.mass;
+        // this.ax = this.fx / this.mass;
+        // this.ay = this.fy / this.mass;
         this.vx += dt * this.ax;
         this.vy += dt * this.ay;
         this.x += this.vx * dt;
@@ -62,8 +54,8 @@ export class Particle {
     }
 
     resetForce(){
-        this.fx = 0;
-        this.fy = 0;
+        this.ax = 0;
+        this.ay = 0;
     }
 
     /**
@@ -74,9 +66,9 @@ export class Particle {
         const dx = b.x - a.x;
         const dy = b.y - a.y;
         const d = Math.sqrt(dx*dx + dy*dy);
-        const f = (gamma * a.mass * b.mass) / (d*d + softening);
-        a.fx += f * dx / d;
-        a.fy += f * dy / d;
+        const ac = (gamma * b.mass) / (d*d + softening);
+        a.ax += ac * dx / d;
+        a.ay += ac * dy / d;
     }
 
     acc(){
@@ -87,8 +79,8 @@ export class Particle {
         return Math.sqrt(this.vx*this.vx + this.vy * this.vy);
     }
 
-    for(){
-        return Math.sqrt(this.fx*this.fx + this.fy * this.fy);
-    }
+    // for(){
+    //     return Math.sqrt(this.fx*this.fx + this.fy * this.fy);
+    // }
 
 }

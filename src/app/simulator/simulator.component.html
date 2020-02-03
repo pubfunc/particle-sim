@@ -1,30 +1,43 @@
 <mat-toolbar class="simulator-toolbar" color="primary">
 
     <mat-toolbar-row>
-        <span>Particle Sim</span>
-        <button type="button" mat-icon-button (click)="toggleStart()">
-            <mat-icon>{{ running ? 'pause_circle_filled' : 'play_circle_filled' }}</mat-icon>
-        </button>
+        <span>SimGravity</span>
         <span></span>
     </mat-toolbar-row>
 
 </mat-toolbar>
 <div class="simulator-content">
 
-    <div class="simulator-left-tools">
+    <div class="simulator-navigation">
+        <button type="button" mat-icon-button (click)="toggleStart()">
+            <mat-icon>{{ running ? 'pause_circle_filled' : 'play_circle_filled' }}</mat-icon>
+        </button>
+        <button type="button" mat-icon-button (click)="resetAndApplyParams()">
+            <mat-icon>refresh</mat-icon>
+        </button>
+        <button type="button" mat-icon-button (click)="view.zoom(0.1)">
+            <mat-icon>zoom_in</mat-icon>
+        </button>
+        <button type="button" mat-icon-button (click)="view.zoom(-0.1)">
+            <mat-icon>zoom_out</mat-icon>
+        </button>
+    </div>
+
+    <div class="simulator-sidebar">
+
+        <div class="particles-form">
+
+            
+
+        </div>
 
 
         <div class="params-form">
 
 
-            <mat-checkbox [(ngModel)]="draw_velocity">Draw velocity</mat-checkbox>
-            <mat-checkbox [(ngModel)]="draw_acceleration">Draw acceleration</mat-checkbox>
-            <mat-checkbox [(ngModel)]="draw_label">Draw label</mat-checkbox>
-
-            <mat-form-field appearance="standard">
-                <mat-label>Scale</mat-label>
-                <input type="number" [(ngModel)]="scale" matInput>
-            </mat-form-field>
+            <mat-checkbox [(ngModel)]="view.draw_velocity">Draw velocity</mat-checkbox>
+            <mat-checkbox [(ngModel)]="view.draw_acceleration">Draw acceleration</mat-checkbox>
+            <mat-checkbox [(ngModel)]="view.draw_label">Draw label</mat-checkbox>
 
         </div>
 
@@ -45,20 +58,16 @@
 
             <div class="form-actions">
                 <button mat-raised-button type="button" (click)="applyParams()" color="accent">Apply</button>
-                <button mat-raised-button type="button" (click)="resetAndApplyParams()" color="accent">Reset</button>
             </div>
 
         </form>
 
     </div>
 
-    <div #container class="canvas-container">
-        <canvas #backgroundCanvas style="z-index: 1;">
-        </canvas>
-        <canvas #canvas 
-            style="z-index: 2;"
-            (wheel)="onWheel($event)" 
-            (mousedown)="onMouseDown($event)">
-        </canvas>
+
+    <div #container 
+        class="canvas-container" 
+        (wheel)="onWheel($event)" 
+        (mousedown)="onMouseDown($event)">
     </div>
 </div>

@@ -13,10 +13,16 @@
     display: flex;
     flex: 1 1 auto;
     flex-flow: row nowrap;
+    height: 10%;
 }
 
-.simulator-left-tools {
+.simulator-sidebar {
     width: 250px;
+}
+
+.simulator-navigation {
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 .canvas-container {

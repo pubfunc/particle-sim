@@ -22,7 +22,7 @@ export class Simulation {
     public bound_bottom = 1000;
 
     public ship = new Starship({ x: -350, y: 0, mass: 1e-10, size: 5, color: 'red', vy: 35 });
-    public particles: Particle[] = [];
+    private particles: Particle[] = [];
 
     public time: number = 0;
 
@@ -42,8 +42,19 @@ export class Simulation {
         this.time = 0;
     }
 
+    getParticles(){
+        return this.particles;
+    }
+
     private updateVectors(){
 
+        // update accelleration, velocity and position
+        // bounce particle from boundary
+        for(let i = 0; i < this.particles.length; i++){
+            const pi = this.particles[i];
+            pi.updateVectors(this.time_step);
+            // this.bounceBoundary(pi);
+        }
 
         // update force vectors
         for(let i = 0; i < this.particles.length; i++){
@@ -59,6 +70,12 @@ export class Simulation {
 
         }
 
+        for(let i = 0; i < this.particles.length; i++){
+            const pi = this.particles[i];
+            pi.updateVectors(0);
+            // this.bounceBoundary(pi);
+        }
+
         // this.ship.resetForce();
 
         // for(let j = 0; j < this.particles.length; j++){
@@ -67,13 +84,7 @@ export class Simulation {
         // }
 
 
-        // update accelleration, velocity and position
-        // bounce particle from boundary
-        for(let i = 0; i < this.particles.length; i++){
-            const pi = this.particles[i];
-            pi.updateVectors(this.time_step);
-            this.bounceBoundary(pi);
-        }
+
 
         // this.ship.updateVectors(this.time_step);
         // this.bounceBoundary(this.ship);

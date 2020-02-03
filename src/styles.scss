@@ -3,6 +3,7 @@
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
 // Plus imports for other components in your app.
+@import 'app/simulator/simulator.theme';
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -41,3 +42,22 @@ body {
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
+
+// Get color from theme
+@function mat-palette-color($theme, $palette, $hue) {
+    @return mat-color(map-get($theme, $palette), $hue);
+}
+
+
+// Get foreground color from theme
+@function mat-foreground($theme, $hue) {
+    @return map-get(map-get($theme, foreground), $hue);
+}
+
+
+// Get background color from theme
+@function mat-background($theme, $hue) {
+    @return map-get(map-get($theme, background), $hue);
+}
+
+@include simulator-theme($particle-sim-theme);

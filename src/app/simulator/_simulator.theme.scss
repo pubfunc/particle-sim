@@ -1,0 +1,21 @@
+
+
+
+@mixin simulator-theme($theme){
+
+    .pf-simulator {
+        .simulator-sidebar {
+            border-right: 1px solid mat-foreground($theme, divider);
+        }
+
+        .simulator-navigation {
+            border-right: 1px solid mat-foreground($theme, divider);
+        }
+
+        .canvas-container {
+            background-color: black;
+        }
+    }
+
+
+}
